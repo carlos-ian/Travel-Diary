@@ -215,47 +215,59 @@ body {
 
 @media (max-width: 768px) {
     .day-date { 
-        font-size: 2.2rem; 
+        font-size: 2rem; 
     }
     
     .activity-card { 
-        flex-direction: column; 
-        align-items: stretch; 
+        flex-direction: row; /* Mantém a imagem do lado do texto no celular! */
+        align-items: center; 
         gap: 15px; 
-        padding: 0 0 20px 0; 
-        overflow: hidden; 
+        padding: 15px; /* Ajusta o espaçamento para caber tudo na tela do celular */
     }
 
+    /* Container da imagem ganha tamanho compacto e quadrado no celular */
     .activity-media-placeholder { 
-        max-width: 100%;
-        width: 100%;
-        height: 260px; /* Altura ideal fixa para manter o padrão de feed */
-        background-color: #f7fafc; 
-        display: block;
-    }
-
-    .activity-img-top-focus {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* Preenche o espaço elegantemente sem deixar vazios */
-        object-position: top center; /* O SEGREDO: Prioriza o topo da foto (rostos/cabeças) nos cortes */
-        border-radius: 24px 24px 0 0; 
-        box-shadow: none;
-    }
-
-    .activity-body {
-        padding: 0 20px;
-    }
-
-    .activity-title {
-        font-size: 1.6rem; 
-    }
-
-    .activity-media-placeholder:has(.no-photo-placeholder) {
-        width: 100%;
-        height: 120px;
+        width: 90px;
+        height: 90px;
+        flex-shrink: 0;
+        border-radius: 12px;
+        background-color: #f7fafc;
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
+    }
+
+    /* A foto se adapta ao mini-quadrado sem distorcer e sem cortar as cabeças */
+    .activity-img-top-focus {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; 
+        object-position: center;
+        border-radius: 12px;
+    }
+
+    .activity-body {
+        padding: 0; /* Reseta o padding antigo */
+    }
+
+    .activity-time {
+        font-size: 0.8rem;
+        margin-bottom: 2px;
+    }
+
+    .activity-title {
+        font-size: 1.2rem; /* Título menor e delicado para caber ao lado da foto */
+        margin-bottom: 6px;
+    }
+
+    .activity-desc {
+        font-size: 0.9rem; /* Texto reduzido para não estourar o card no mobile */
+        line-height: 1.4;
+    }
+
+    .activity-media-placeholder:has(.no-photo-placeholder) {
+        width: 90px;
+        height: 90px;
     }
 }
