@@ -1,0 +1,232 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #e6f4ff;
+    font-family: 'Inter', sans-serif;
+    color: #2c3e50;
+    padding-bottom: 80px;
+}
+
+.day-header {
+    background: linear-gradient(135deg, #0082e6 0%, #6ec2ff 100%);
+    color: #ffffff;
+    padding: 40px 20px 60px 20px;
+}
+
+.header-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.back-link {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 25px;
+    transition: all 0.2s ease;
+}
+
+.back-link:hover {
+    opacity: 0.7;
+    transform: translateX(-3px);
+}
+
+.day-indicator {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.day-date {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Feed Container e Cards */
+.feed-container {
+    max-width: 1000px;
+    margin: -30px auto 40px auto;
+    padding: 0 20px;
+}
+
+.activity-card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+    display: flex;
+    gap: 35px;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.activity-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0, 130, 230, 0.08);
+}
+
+/* Modificado: Removemos o tamanho rígido e deixamos o container flexível */
+.activity-media-placeholder {
+    max-width: 240px;          /* Limite máximo elegante para não estourar a tela */
+    max-height: 180px;         /* Altura máxima harmoniosa */
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    /* Removemos o background-color e bordas rígidas que causavam o aspecto feio */
+}
+
+/* Modificado: A imagem dita o seu próprio tamanho natural dentro do limite */
+.activity-img-top-focus {
+    max-width: 100%;
+    max-height: 180px;         /* Mantém a proporção perfeita sem cortar nada */
+    object-fit: contain;       /* Não corta nenhuma cabeça ou detalhe */
+    border-radius: 18px;       /* Aplica o arredondamento direto na foto */
+    display: block;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra suave direto na foto */
+    transition: transform 0.3s ease;
+}
+
+.activity-img-top-focus:hover {
+    transform: scale(1.03);
+}
+
+/* Mantemos o tamanho fixo APENAS para o quadrado cinza de quando não houver foto */
+.activity-media-placeholder:has(.no-photo-placeholder) {
+    width: 240px;
+    height: 160px;
+    background-color: #f7fafc;
+    border: 1px solid #e2e8f0;
+}
+
+/* Um toque extra: adiciona uma sombra bem leve ao redor da foto 
+   para ela se destacar do fundo do container */
+.activity-media-placeholder img {
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.06));
+}
+
+.activity-img-top-focus:hover {
+    transform: scale(1.04);
+}
+
+.activity-body {
+    flex: 1;
+}
+
+.activity-time {
+    color: #0082e6;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.activity-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #0f2c59;
+    margin-bottom: 12px;
+}
+
+.activity-desc {
+    font-size: 1.05rem;
+    color: #617d98;
+    line-height: 1.5;
+}
+
+.no-photo-placeholder {
+    color: #a0aec0;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+}
+
+/* SEÇÃO DE PAGINAÇÃO */
+.pagination-nav {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-btn {
+    background-color: #ffffff;
+    border: 2px solid transparent;
+    color: #0082e6;
+    padding: 14px 28px;
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.nav-btn:hover {
+    background-color: #f0f8ff;
+    border-color: #0082e6;
+    transform: translateX(-4px);
+    box-shadow: 0 6px 20px rgba(0, 130, 230, 0.1);
+}
+
+.nav-btn-next {
+    background: linear-gradient(135deg, #0082e6 0%, #006ec4 100%);
+    border: none;
+    color: #ffffff;
+    padding: 14px 28px;
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 130, 230, 0.3);
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.nav-btn-next::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #00a2ff 0%, #0082e6 100%);
+    border-radius: 14px;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.nav-btn-next:hover {
+    transform: translateX(4px);
+    box-shadow: 0 8px 25px rgba(0, 130, 230, 0.45), 0 0 15px rgba(0, 162, 255, 0.4);
+}
+
+.nav-btn-next:hover::before {
+    opacity: 1;
+}
+
+.nav-btn:active, .nav-btn-next:active {
+    transform: scale(0.95) translateX(0);
+}
+
+@media (max-width: 768px) {
+    .day-date { font-size: 2.2rem; }
+    .activity-card { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .activity-media-placeholder { width: 100%; height: 200px; }
+}
