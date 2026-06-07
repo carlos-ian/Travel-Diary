@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Dia</title>
+    <link rel="stylesheet" href="static/style-detalhes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+</head>
+<body>
+
+    <header class="day-header">
+        <div class="header-container">
+            <a href="home.html" class="back-link">&larr; Voltar</a>
+            <span class="day-indicator" id="dayIndicator">CARREGANDO...</span>
+            <h1 class="day-date" id="dayDateTitle">Buscando informações da planilha...</h1>
+        </div>
+    </header>
+
+    <main class="feed-container" id="feedAtividades">
+    </main>
+
+    <nav class="pagination-nav">
+        <button class="nav-btn" id="btnPrev">&larr; Dia Anterior</button>
+        <button class="nav-btn-next" id="btnNext">Próximo Dia &rarr;</button>
+    </nav>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentDay = parseInt(urlParams.get('dia')) || 1; 
+
+        const LINK_DO_GOOGLE_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS3FYHTcZ-2F1V8uQtLpWuegro7OFsQE0oKo1_BbjefKOI5EqUH8mGtmnGe5TTrA1ahFAg5sdx7pWeS/pub?output=csv";
+
+        const datasPorDia = {
+            1: "25/05/2026", 2: "26/05/2026", 3: "27/05/2026", 4: "28/05/2026", 5: "29/05/2026",
+            6: "30/05/2026", 7: "31/05/2026", 8: "01/06/2026", 9: "02/06/2026", 10: "03/06/2026",
+            11: "04/06/2026", 12: "05/06/2026", 13: "06/06/2026", 14: "07/06/2026", 15: "08/06/2026",
+            16: "09/06/2026", 17: "10/06/2026", 18: "11/06/2026", 19: "12/06/2026", 20: "13/06/2026",
+            21: "14/06/2026", 22: "15/06/2026", 23: "16/06/2026", 24: "17/06/2026", 25: "18/06/2026",
+            26: "19/06/2026", 27: "20/06/2026", 28: "21/06/2026", 29: "22/06/2026", 30: "23/06/2026"
+        };
+
+        Papa.parse(LINK_DO_GOOGLE_CSV, {
+            download: true,
+            header: true,
+            skipEmptyLines: 'greedy', 
+            complete: function(results) {
+                const dadosDaPlanilha = results.data;
+                const dataEsperada = datasPorDia[currentDay] || "";
+
+                document.getElementById('dayIndicator').innerText = `DIA ${currentDay}`;
+                document.getElementById('dayDateTitle').innerText = dataEsperada ? `Dia ${dataEsperada}` : `Dia ${currentDay} da Viagem`;
+
+                const container = document.getElementById('feedAtividades');
+                container.innerHTML = ""; 
+
+                const atividadesDoDia = dadosDaPlanilha.filter(linha => {
+                    const linhaMinuscula = {};
+                    for (let chave in linha) {
+                        if (chave) {
+                            linhaMinuscula[chave.toLowerCase().trim()] = linha[chave] ? linha[chave].toString().toLowerCase().trim() : "";
+                        }
+                    }
+                    const valorData = linhaMinuscula['data'] || "";
+                    const valorDia = linhaMinuscula['dia'] || "";
+                    return valorData === dataEsperada.toLowerCase().trim() || valorDia === currentDay.toString();
+                });
+
+                if (atividadesDoDia.length === 0) {
+                    container.innerHTML = `
+                        <div style='text-align:center; padding: 40px; color: #617d98;'>
+                            <p>Nenhuma atividade cadastrada para o <strong>Dia ${currentDay}</strong>.</p>
+                        </div>`;
+                    return;
+                }
+
+                atividadesDoDia.forEach(atividade => {
+                    let idImagem = "", horario = "", titulo = "", descricao = "";
+
+                    for (let chave in atividade) {
+                        const chaveLimpa = chave.toLowerCase().trim();
+                        if (chaveLimpa.includes('imagem') || chaveLimpa.includes('foto') || chaveLimpa.includes('id')) {
+                            idImagem = atividade[chave] ? atividade[chave].trim() : "";
+                        }
+                        if (chaveLimpa.includes('horario') || chaveLimpa.includes('horário') || chaveLimpa.includes('hora')) {
+                            horario = atividade[chave];
+                        }
+                        if (chaveLimpa.includes('atividade') || chaveLimpa.includes('titulo') || chaveLimpa.includes('título')) {
+                            titulo = atividade[chave];
+                        }
+                        if (chaveLimpa.includes('descricao') || chaveLimpa.includes('descrição') || chaveLimpa.includes('texto')) {
+                            descricao = atividade[chave];
+                        }
+                    }
+
+                    // Extrai o ID caso tenham colado o link inteiro na planilha
+                    if (idImagem.includes('id=')) {
+                        idImagem = idImagem.split('id=')[1].split('&')[0];
+                    } else if (idImagem.includes('d/')) {
+                        idImagem = idImagem.split('d/')[1].split('/')[0];
+                    }
+
+                    // URL estável de miniatura do Google Drive
+                    const urlFoto = idImagem ? `https://drive.google.com/thumbnail?id=${idImagem}&sz=w800` : "";
+                    
+                    container.innerHTML += `
+                        <article class="activity-card">
+                            <div class="activity-media-placeholder">
+                                ${urlFoto ? `
+                                    <img src="${urlFoto}" class="activity-img-top-focus" alt="${titulo}">
+                                ` : `
+                                    <div class="no-photo-placeholder">SEM FOTO</div>
+                                `}
+                            </div>
+                            <div class="activity-body">
+                                <time class="activity-time">${horario || '--:--'}</time>
+                                <h2 class="activity-title">${titulo || 'Atividade Sem Título'}</h2>
+                                <p class="activity-desc">${descricao || ''}</p>
+                            </div>
+                        </article>
+                    `;
+                });
+            }
+        });
+
+        const nomeDoFicheiroAtual = window.location.pathname.split("/").pop() || "detalhes-dia.html";
+        document.getElementById('btnPrev').onclick = () => { if (currentDay > 1) window.location.href = `${nomeDoFicheiroAtual}?dia=${currentDay - 1}`; };
+        document.getElementById('btnNext').onclick = () => { if (currentDay < 30) window.location.href = `${nomeDoFicheiroAtual}?dia=${currentDay + 1}`; };
+        if (currentDay === 1) document.getElementById('btnPrev').style.visibility = 'hidden';
+        if (currentDay === 30) document.getElementById('btnNext').style.visibility = 'hidden';
+    </script>
+</body>
+</html>

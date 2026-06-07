@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firminopolis - Diário de Bordo</title>
+    <link rel="stylesheet" href="static/style-home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="tab-navigation">
+            <button class="tab-btn active" onclick="switchTab('sobre-mim')">Sobre Mim</button>
+            <button class="tab-btn" onclick="switchTab('album-dias')">Álbum dos Dias</button>
+        </nav>
+    </header>
+
+    <main class="content-container">
+        
+        <section id="sobre-mim" class="tab-content active">
+            <div class="profile-card">
+                <div class="profile-info">
+                    <span class="subtitle">DIÁRIO PESSOAL</span>
+                    <h2 class="section-title">Sobre mim</h2>
+                    <p class="description-text">
+                        Olá! Este é o meu espaço para registrar momentos, atividades e memórias ao longo de 30 dias. 
+                        Aqui você encontrará uma coleção visual do meu cotidiano, com fotos e relatos de cada dia. 
+                        Seja bem-vindo(a) a essa jornada.
+                    </p>
+                </div>
+                <div class="profile-avatar">
+                    <span>FOTO EM BREVE</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="album-dias" class="tab-content">
+            <div class="album-intro">
+                <h2 class="album-title">30 Dias</h2>
+                <p class="album-subtitle">Escolha um dia para ver as memórias</p>
+            </div>
+            
+            <div class="grid-days" id="gridDaysContainer">
+                </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 — Meu Diário de 30 Dias</p>
+    </footer>
+
+    <script>
+        // Função para alternar o conteúdo visual entre as abas
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Renderização dinâmica dos 30 botões de dias
+        const gridContainer = document.getElementById('gridDaysContainer');
+        for (let i = 1; i <= 30; i++) {
+            const dayCard = document.createElement('div');
+            dayCard.className = 'day-card';
+            dayCard.innerHTML = `
+                <span class="day-label">DIA</span>
+                <span class="day-number">${i}</span>
+            `;
+            // Ao clicar, leva para a página do dia passando o número na URL
+            dayCard.onclick = () => {
+                window.location.href = `detalhes-dia.html?dia=${i}`;
+            };
+            gridContainer.appendChild(dayCard);
+        }
+    </script>
+</body>
+</html>
