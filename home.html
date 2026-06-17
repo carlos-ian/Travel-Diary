@@ -21,9 +21,9 @@
     <main class="content-container">
         
         <section id="sobre-mim" class="tab-content active">
-            <div class="profile-card" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 50px; padding: 50px;">
+            <div class="profile-card" class="responsive-profile-card" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 50px; padding: 50px; flex-wrap: wrap;">
                 
-                <div class="profile-info" style="flex: 1; max-width: 55%;">
+                <div class="profile-info" style="flex: 1; min-width: 280px; max-width: 55%;">
                     <span class="subtitle" style="font-size: 0.85rem; letter-spacing: 1.5px; opacity: 0.8;">DIÁRIO PESSOAL</span>
                     <h2 class="section-title" style="font-size: 2.5rem; margin-bottom: 15px;">Sobre mim</h2>
                     
@@ -32,17 +32,35 @@
 
                         Seja bem-vindo ao meu diário de bordo, em que você irá conhecer de perto a minha experiência sendo 99% dentista. <br><br>
 
-                        Meu nome é Ivvy Karla e tenho 24 anos, atualmente curso Odontologia na Universidade Federal de Goiás, uma área pela qual me permite promover saúde, bem-estar e qualidade de vida aos pacientes. Durante minha formação, procuro unir conhecimento técnico, comprometimento e humanização no atendimento. <br><br>
+                        Meu nome é <b>Ivvy Karla</b> e tenho 24 anos, atualmente curso <b>Odontologia na Universidade Federal de Goiás</b>, uma área pela qual me permite promover saúde, bem-estar e qualidade de vida aos pacientes. Durante minha formação, procuro unir conhecimento técnico, comprometimento e humanização no atendimento. <br><br>
                         Além disso, estou realizando estágio na cidade de Firminópolis, no Centro de Saúde Irmã Francisca, experiência que tem contribuído significativamente para meu desenvolvimento profissional. Nesse ambiente, tenho a oportunidade de colocar em prática os conhecimentos adquiridos na faculdade, aprimorar minhas habilidades clínicas e fortalecer meu compromisso com a saúde dos meus pacientes. <br><br>
                         Minha trajetória na Odontologia reflete meu desejo de construir uma carreira pautada na excelência, na ética e no cuidado com o próximo.
                     </p>
                 </div>
                 
-                <div class="profile-avatar" style="width: 400px; height: 530px; flex-shrink: 0; border-radius: 24px; overflow: hidden; box-shadow: 0 12px 30px rgba(0,0,0,0.15); display: flex; justify-content: center; align-items: center;">
+                <div class="profile-avatar" style="width: 100%; max-width: 400px; height: auto; aspect-ratio: 400 / 530; flex-shrink: 0; border-radius: 24px; overflow: hidden; box-shadow: 0 12px 30px rgba(0,0,0,0.15); display: flex; justify-content: center; align-items: center; margin: 0 auto;">
                     <img src="static/Image-SobreMim.jpeg" alt="Minha Foto de Perfil" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 24px;">
                 </div>
 
             </div>
+
+            <style>
+                @media (max-width: 768px) {
+                    .profile-card {
+                        flex-direction: column !important;
+                        padding: 20px !important;
+                        gap: 30px !important;
+                    }
+                    .profile-info {
+                        max-width: 100% !important;
+                        min-width: 100% !important;
+                    }
+                    .profile-avatar {
+                        max-width: 100% !important;
+                        height: auto !important;
+                    }
+                }
+            </style>
         </section>
 
         <section id="album-dias" class="tab-content">
