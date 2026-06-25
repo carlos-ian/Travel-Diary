@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Dia</title>
-    <link class="stylesheet" href="static/style-detalhes.css">
+    <link rel="stylesheet" href="static/style-detalhes.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦷</text></svg>">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
@@ -57,14 +57,14 @@
                 container.innerHTML = ""; 
 
                 const atividadesDoDia = dadosDaPlanilha.filter(linha => {
-                    const linhaMinuscula = {};
+                    const inlineMinuscula = {};
                     for (let chave in linha) {
                         if (chave) {
-                            linhaMinuscula[chave.toLowerCase().trim()] = linha[chave] ? linha[chave].toString().toLowerCase().trim() : "";
+                            inlineMinuscula[chave.toLowerCase().trim()] = linha[chave] ? linha[chave].toString().toLowerCase().trim() : "";
                         }
                     }
-                    const valorData = linhaMinuscula['data'] || "";
-                    const valorDia = linhaMinuscula['dia'] || "";
+                    const valorData = inlineMinuscula['data'] || "";
+                    const valorDia = inlineMinuscula['dia'] || "";
                     return valorData === dataEsperada.toLowerCase().trim() || valorDia === currentDay.toString();
                 });
 
