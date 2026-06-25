@@ -24,7 +24,7 @@
             <div class="profile-card layout-sobre-mim">
                 
                 <div class="profile-info texto-sobre-mim">
-                    <span class="subtitle">sDIÁRIO PESSOAL</span>
+                    <span class="subtitle">DIÁRIO PESSOAL</span>
                     <h2 class="section-title">Sobre mim</h2>
                     
                     <p class="description-text">
@@ -111,7 +111,7 @@
 
         <section id="album-dias" class="tab-content">
             <div class="album-intro">
-                <h2 class="album-title">26 Dias</h2>
+                <h2 class="album-title">26 Days</h2>
                 <p class="album-subtitle">Escolha um dia para ver as memórias</p>
             </div>
             
@@ -125,7 +125,7 @@
                     <span class="subtitle" style="font-size: 0.85rem; letter-spacing: 1.5px; opacity: 0.8;">CONSIDERAÇÕES FINAIS</span>
                     <h2 class="section-title" style="font-size: 2.5rem; margin-bottom: 15px;">Reflexão do Estágio</h2>
                     <p class="description-text" style="font-size: 1rem; line-height: 1.6; color: #ffffff; text-align: justify;">
-                        Ao longo do estágio no Centro de Saúde Irmã Francisca foi possível compreender, na prática, muitos dos princípios discutidos durante a minha formação acadêmica no curso de Odontologia. <br><br> É fulcral ressaltar, os atendimentos clínicos realizados foram de suma importância para o meu crescimento acadêmico e profissional, uma vez que em diversos casos apliquei conhecimentos teóricos obtidos durante a graduação, como na execução de restaurações, na conduta de um acesso ao dente, na forma de radiografar pacientes que possuem dificuldades na abertura da boca, na forma de aplicar manejos comportamentais em atendimentos infantis, no método cirúrgico menos traumático e na melhor forma de moldar o paciente  para prótese.
+                        O longo do estágio no Centro de Saúde Irmã Francisca, foi possível compreender, na prática, muitos dos princípios discutidos durante a minha formação acadêmica no curso de Odontologia. <br><br> É fulcral ressaltar, os atendimentos clínicos realizados foram de suma importância para o meu crescimento acadêmico e profissional, uma vez que em diversos casos apliquei conhecimentos teóricos obtidos durante a graduação, como na execução de restaurações, na conduta de um acesso ao dente, na forma de radiografar pacientes que possuem dificuldades na abertura da boca, na forma de aplicar manejos comportamentais em atendimentos infantis, no método cirúrgico menos traumático e na melhor forma de moldar o paciente  para prótese.
                         <br><br> Além da prática clínica, a vivência proporcionou uma compreensão mais ampla da Odontologia Coletiva e do funcionamento do Sistema Único de Saúde (SUS) através da participação em ações do Programa Saúde na Escola (PSE), visitas domiciliares, orientações de higiene bucal e de próteses, bem como o acompanhamento de gestantes e crianças, evidenciou que o cuidado em saúde bucal vai muito além do tratamento curativo, envolvendo promoção da saúde, prevenção de doenças e educação em saúde.
                         <br><br> A experiência permitiu perceber como os princípios do SUS — universalidade, integralidade e equidade — estão presentes no cotidiano da Atenção Primária, garantindo acesso à população e promovendo um cuidado centrado nas necessidades de cada indivíduo. Também reforçou a importância do trabalho multiprofissional e da atuação em equipe para a construção de uma assistência mais resolutiva e acolhedora.
                         <br><br> Dessa forma, o estágio fortaleceu a minha visão crítica sobre o papel social do cirurgião-dentista, evidenciando que a prática odontológica deve estar comprometida não apenas com a saúde bucal, mas também com a qualidade de vida e o bem-estar da comunidade.
@@ -155,7 +155,11 @@
             });
 
             document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+        
+            const correspondenteBtn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            if(correspondenteBtn) {
+                correspondenteBtn.classList.add('active');
+            }
         }
 
         const gridContainer = document.getElementById('gridDaysContainer');
@@ -166,8 +170,14 @@
                 <span class="day-label">DIA</span>
                 <span class="day-number">${i}</span>
             `;
+            
             dayCard.onclick = () => {
-                window.location.href = `detalhes-dia.html?dia=${i}`;
+                if (i === 26) {
+                    switchTab('reflexao-estagio');
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); 
+                } else {
+                    window.location.href = `detalhes-dia.html?dia=${i}`;
+                }
             };
             gridContainer.appendChild(dayCard);
         }
