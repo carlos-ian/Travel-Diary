@@ -13,7 +13,7 @@
 
     <header class="day-header">
         <div class="header-container">
-            <a href="index.html" class="back-link">&larr; Voltar</a>
+            <a href="home.html" class="back-link">&larr; Voltar</a>
             <span class="day-indicator" id="dayIndicator">CARREGANDO...</span>
             <h1 class="day-date" id="dayDateTitle">Buscando informações da planilha...</h1>
         </div>
@@ -58,7 +58,7 @@
 
                 const atividadesDoDia = dadosDaPlanilha.filter(linha => {
                     const inlineMinuscula = {};
-                    for (let chave in linha) {
+                    for (let chave in inlineMinuscula) {
                         if (chave) {
                             inlineMinuscula[chave.toLowerCase().trim()] = linha[chave] ? linha[chave].toString().toLowerCase().trim() : "";
                         }
@@ -137,7 +137,7 @@
             btnNext.innerHTML = 'Reflexão Final &rarr;';
             btnNext.onclick = (e) => {
                 e.preventDefault();
-                window.location.href = 'index.html?tab=reflexao-estagio';
+                window.location.href = 'home.html?tab=reflexao-estagio';
             };
         } else {
             btnNext.onclick = () => { window.location.href = `${nomeDoFicheiroAtual}?dia=${currentDay + 1}`; };
