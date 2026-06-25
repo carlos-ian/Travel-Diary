@@ -160,7 +160,7 @@ Dessa forma, o estágio fortaleceu a minha visão crítica sobre o papel social 
             });
 
             document.getElementById(tabId).classList.add('active');
-        
+            
             const correspondenteBtn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
             if(correspondenteBtn) {
                 correspondenteBtn.classList.add('active');
@@ -177,15 +177,18 @@ Dessa forma, o estágio fortaleceu a minha visão crítica sobre o papel social 
             `;
             
             dayCard.onclick = () => {
-                if (i === 26) {
-                    switchTab('reflexao-estagio');
-                    window.scrollTo({ top: 0, behavior: 'smooth' }); 
-                } else {
-                    window.location.href = `detalhes-dia.html?dia=${i}`;
-                }
+                window.location.href = `detalhes-dia.html?dia=${i}`;
             };
             gridContainer.appendChild(dayCard);
         }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tab = urlParams.get('tab');
+            if (tab) {
+                switchTab(tab);
+            }
+        });
     </script>
 </body>
 </html>
