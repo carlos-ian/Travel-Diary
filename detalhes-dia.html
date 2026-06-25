@@ -58,7 +58,7 @@
 
                 const atividadesDoDia = dadosDaPlanilha.filter(linha => {
                     const inlineMinuscula = {};
-                    for (let chave in inlineMinuscula) {
+                    for (let chave in linha) {
                         if (chave) {
                             inlineMinuscula[chave.toLowerCase().trim()] = linha[chave] ? linha[chave].toString().toLowerCase().trim() : "";
                         }
