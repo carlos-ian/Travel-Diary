@@ -120,8 +120,16 @@
                             </div>
                         </article>
                     `;
+                });
+            }
+        });
 
-                    const urlParams = new URLSearchParams(window.location.search);
+        const nomeDoFicheiroAtual = window.location.pathname.split("/").pop() || "detalhes-dia.html";
+        document.getElementById('btnPrev').onclick = () => { if (currentDay > 1) window.location.href = `${nomeDoFicheiroAtual}?dia=${currentDay - 1}`; };
+        document.getElementById('btnNext').onclick = () => { if (currentDay < 26) window.location.href = `${nomeDoFicheiroAtual}?dia=${currentDay + 1}`; };
+        if (currentDay === 1) document.getElementById('btnPrev').style.visibility = 'hidden';
+        if (currentDay === 30) document.getElementById('btnNext').style.visibility = 'hidden';
+        const urlParams = new URLSearchParams(window.location.search);
                         const diaAtual = parseInt(urlParams.get('dia'));
                         
                         const btnProximo = document.querySelector('.btn-proximo'); 
@@ -137,15 +145,6 @@
                                 window.location.href = `detalhes-dia.html?dia=${diaAtual + 1}`;
                             };
                         }
-                });
-            }
-        });
-
-        const nomeDoFicheiroAtual = window.location.pathname.split("/").pop() || "detalhes-dia.html";
-        document.getElementById('btnPrev').onclick = () => { if (currentDay > 1) window.location.href = `${nomeDoFicheiroAtual}?dia=${currentDay - 1}`; };
-        document.getElementById('btnNext').onclick = () => { if (currentDay < 30) window.location.href = `${nomeDoFicheiroAtual}?dia=${currentDay + 1}`; };
-        if (currentDay === 1) document.getElementById('btnPrev').style.visibility = 'hidden';
-        if (currentDay === 30) document.getElementById('btnNext').style.visibility = 'hidden';
     </script>
 </body>
 </html>
