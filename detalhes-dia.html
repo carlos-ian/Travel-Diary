@@ -96,14 +96,12 @@
                         }
                     }
 
-                    // Extrai o ID caso tenham colado o link inteiro na planilha
                     if (idImagem.includes('id=')) {
                         idImagem = idImagem.split('id=')[1].split('&')[0];
                     } else if (idImagem.includes('d/')) {
                         idImagem = idImagem.split('d/')[1].split('/')[0];
                     }
 
-                    // URL estável de miniatura do Google Drive
                     const urlFoto = idImagem ? `https://drive.google.com/thumbnail?id=${idImagem}&sz=w800` : "";
                     
                     container.innerHTML += `
@@ -122,6 +120,23 @@
                             </div>
                         </article>
                     `;
+
+                    const urlParams = new URLSearchParams(window.location.search);
+                        const diaAtual = parseInt(urlParams.get('dia'));
+                        
+                        const btnProximo = document.querySelector('.btn-proximo'); 
+                        
+                        if (diaAtual === 26) {
+                            btnProximo.innerHTML = 'Reflexão Final &rarr;';
+                            btnProximo.onclick = (e) => {
+                                e.preventDefault();
+                                window.location.href = 'index.html?tab=reflexao-estagio';
+                            };
+                        } else {
+                            btnProximo.onclick = () => {
+                                window.location.href = `detalhes-dia.html?dia=${diaAtual + 1}`;
+                            };
+                        }
                 });
             }
         });
