@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Dia</title>
-    <link rel="stylesheet" href="static/style-detalhes.css">
+    <link class="stylesheet" href="static/style-detalhes.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦷</text></svg>">
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 </head>
 <body>
 
     <header class="day-header">
         <div class="header-container">
-            <a href="home.html" class="back-link">&larr; Voltar</a>
+            <a href="index.html" class="back-link">&larr; Voltar</a>
             <span class="day-indicator" id="dayIndicator">CARREGANDO...</span>
             <h1 class="day-date" id="dayDateTitle">Buscando informações da planilha...</h1>
         </div>
@@ -125,26 +124,24 @@
         });
 
         const nomeDoFicheiroAtual = window.location.pathname.split("/").pop() || "detalhes-dia.html";
-        document.getElementById('btnPrev').onclick = () => { if (currentDay > 1) window.location.href = `${nomeDoFicheiroAtual}?dia=${currentDay - 1}`; };
-        document.getElementById('btnNext').onclick = () => { if (currentDay < 26) window.location.href = `${nomeDoFicheiroAtual}?dia=${currentDay + 1}`; };
-        if (currentDay === 1) document.getElementById('btnPrev').style.visibility = 'hidden';
-        if (currentDay === 30) document.getElementById('btnNext').style.visibility = 'hidden';
-        const urlParams = new URLSearchParams(window.location.search);
-                        const diaAtual = parseInt(urlParams.get('dia'));
-                        
-                        const btnProximo = document.querySelector('.btn-proximo'); 
-                        
-                        if (diaAtual === 26) {
-                            btnProximo.innerHTML = 'Reflexão Final &rarr;';
-                            btnProximo.onclick = (e) => {
-                                e.preventDefault();
-                                window.location.href = 'index.html?tab=reflexao-estagio';
-                            };
-                        } else {
-                            btnProximo.onclick = () => {
-                                window.location.href = `detalhes-dia.html?dia=${diaAtual + 1}`;
-                            };
-                        }
+        const btnPrev = document.getElementById('btnPrev');
+        const btnNext = document.getElementById('btnNext');
+
+        if (currentDay === 1) {
+            btnPrev.style.visibility = 'hidden';
+        } else {
+            btnPrev.onclick = () => { window.location.href = `${nomeDoFicheiroAtual}?dia=${currentDay - 1}`; };
+        }
+
+        if (currentDay === 26) {
+            btnNext.innerHTML = 'Reflexão Final &rarr;';
+            btnNext.onclick = (e) => {
+                e.preventDefault();
+                window.location.href = 'index.html?tab=reflexao-estagio';
+            };
+        } else {
+            btnNext.onclick = () => { window.location.href = `${nomeDoFicheiroAtual}?dia=${currentDay + 1}`; };
+        }
     </script>
 </body>
 </html>
